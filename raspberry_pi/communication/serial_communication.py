@@ -27,6 +27,10 @@ IMPORTANT:
     This module does not control motors or wheelchair movement.
 """
 
+# Import PySerial's exception type for handling serial errors.
+from copy import error
+
+from serial import SerialException
 
 # ---------------------------------------------------------------------
 # 1. CUSTOM EXCEPTIONS
@@ -165,7 +169,7 @@ class ArduinoCommunication:
             # timeout configured when opening the serial port.
             response_bytes = self.serial_connection.readline()
 
-        except (OSError, IOError) as error:
+        except (OSError, SerialException) as error:
             raise CommunicationError(
                 f"Serial communication failed: {error}"
             ) from error
